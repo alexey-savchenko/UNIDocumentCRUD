@@ -281,7 +281,7 @@ public enum DocumentItem: Hashable, Equatable, Identifiable {
     }
   }
 
-  var parentFolderID: UUID {
+  public var parentFolderID: UUID {
     switch self {
     case .folder(let item): return item.parentFolderID
     case .scan(let item): return item.parentFolderID
@@ -289,7 +289,7 @@ public enum DocumentItem: Hashable, Equatable, Identifiable {
     }
   }
 
-  var name: String {
+  public var name: String {
     switch self {
     case .folder(let item): return item.name
     case .scan(let item): return item.name
@@ -297,7 +297,7 @@ public enum DocumentItem: Hashable, Equatable, Identifiable {
     }
   }
 
-  var updateDate: Date {
+  public var updateDate: Date {
     switch self {
     case .folder(let item): return item.updateDate
     case .scan(let item): return item.updateDate
@@ -305,7 +305,7 @@ public enum DocumentItem: Hashable, Equatable, Identifiable {
     }
   }
 
-  var creationDate: Date {
+  public var creationDate: Date {
     switch self {
     case .folder(let item): return item.creationDate
     case .scan(let item): return item.creationDate
