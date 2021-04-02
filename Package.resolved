@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DeepDiff",
+        "repositoryURL": "https://github.com/onmyway133/DeepDiff.git",
+        "state": {
+          "branch": null,
+          "revision": "010ebbe1ce5ebeaee37a3d2f4a8c03f0e75b8045",
+          "version": "2.3.1"
+        }
+      },
+      {
+        "package": "Reachability",
+        "repositoryURL": "https://github.com/ashleymills/Reachability.swift",
+        "state": {
+          "branch": null,
+          "revision": "c01bbdf2d633cf049ae1ed1a68a2020a8bda32e2",
+          "version": "5.1.0"
+        }
+      },
+      {
+        "package": "RxSwift",
+        "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "c6c0c540109678b96639c25e9c0ebe4a6d7a69a9",
+          "version": "5.0.0"
+        }
+      },
+      {
+        "package": "UNILib",
+        "repositoryURL": "https://github.com/alexey-savchenko/UNILib.git",
+        "state": {
+          "branch": "main",
+          "revision": "f79776906901d92246f2c448a85480e54b1ac594",
+          "version": null
+        }
+      },
+      {
+        "package": "UNIScanLib",
+        "repositoryURL": "https://github.com/alexey-savchenko/UNIScanLib.git",
+        "state": {
+          "branch": "main",
+          "revision": "36d54e4120183222925745b153526cf2e22e278c",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
