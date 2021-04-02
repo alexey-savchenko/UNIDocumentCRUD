@@ -40,15 +40,15 @@ public class CRUDService {
     let otherItems = rawContents.filter { DocumentItem.prism.folder.tryGet($0) == nil }
 
     let folders = rawFolders
-      .map { rawFolder -> Folder in
+      .map { rawFolder -> CustomFolder in
         let contentsCount = otherItems.filter { $0.parentFolderID == rawFolder.id }.count
-        return Folder.lens.contentsCount.set(contentsCount)(rawFolder)
+        return CustomFolder.lens.contentsCount.set(contentsCount)(rawFolder)
       }
       .map(DocumentItem.folder)
     return folders + otherItems
   }
 
-  public func contentsOf(_ folder: Folder) -> [DocumentItem] {
+  public func contentsOf(_ folder: CustomFolder) -> [DocumentItem] {
     return items().filter { $0.parentFolderID == folder.id }
   }
 
@@ -56,7 +56,7 @@ public class CRUDService {
     name: String,
     parentFolderID: UUID
   ) -> Result<DocumentItem, CRUDService.Error> {
-    let folder = Folder(
+    let folder = CustomFolder(
       creationDate: Date(),
       updateDate: Date(),
       name: name,
@@ -137,7 +137,7 @@ public class CRUDService {
   public func createDocument(
     from pageImages: [UIImage],
     name: String,
-    folder: Folder
+    parentFolderID: UUID
   ) -> Result<DocumentItem, CRUDService.Error> {
     let pages = pageImages.map(createPage)
 
@@ -149,7 +149,7 @@ public class CRUDService {
         updateDate: Date(),
         name: name,
         pages: scanPages,
-        parentFolderID: folder.id
+        parentFolderID: parentFolderID
       )
       let boxed = DocumentItem.scan(item: document)
       let encodedDocumentData = try! JSONEncoder().encode(boxed)
@@ -170,7 +170,7 @@ public class CRUDService {
   public func createDocument(
     from pages: [ScanPage],
     name: String,
-    folder: Folder
+    parentFolderID: UUID
   ) -> Result<DocumentItem, CRUDService.Error> {
     let document = ScannedDocument(
       id: UUID(),
@@ -178,7 +178,7 @@ public class CRUDService {
       updateDate: Date(),
       name: name,
       pages: pages,
-      parentFolderID: folder.id
+      parentFolderID: parentFolderID
     )
     let boxed = DocumentItem.scan(item: document)
 

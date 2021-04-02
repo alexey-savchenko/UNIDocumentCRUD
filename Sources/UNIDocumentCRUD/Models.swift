@@ -228,8 +228,21 @@ public struct ScannedDocument: Codable, Hashable, Identifiable {
   public let parentFolderID: UUID
 }
 
+/// sourcery: prism
+public enum Folder {
+  case root
+  case custom(value: CustomFolder)
+  
+  public var id: UUID {
+    switch self {
+    case .custom(let value): return value.id
+    case .root: return Constants.rootFolderID
+    }
+  }
+}
+
 /// sourcery: lens
-public struct Folder: Codable, Hashable, Identifiable {
+public struct CustomFolder: Codable, Hashable, Identifiable {
   internal init(
     creationDate: Date,
     updateDate: Date,
@@ -258,7 +271,7 @@ public struct Folder: Codable, Hashable, Identifiable {
 public enum DocumentItem: Hashable, Equatable, Identifiable {
   case scan(item: ScannedDocument)
   case text(item: TextDocument)
-  case folder(item: Folder)
+  case folder(item: CustomFolder)
 
   public var id: UUID {
     switch self {
@@ -316,7 +329,7 @@ extension DocumentItem: Codable {
       self = .scan(item: scan)
     } else if let textDoc = try? container.decode(TextDocument.self, forKey: .text) {
       self = .text(item: textDoc)
-    } else if let folder = try? container.decode(Folder.self, forKey: .folder) {
+    } else if let folder = try? container.decode(CustomFolder.self, forKey: .folder) {
       self = .folder(item: folder)
     } else {
       throw CodingError()

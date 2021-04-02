@@ -44,9 +44,24 @@ extension DocumentItem {
             tryGet: { if case .text(let value) = $0 { return value } else { return nil } },
             inject: { (x1) in .text(item:x1) })
 
-        public static let folder = Prism<DocumentItem,Folder>(
+        public static let folder = Prism<DocumentItem,CustomFolder>(
             tryGet: { if case .folder(let value) = $0 { return value } else { return nil } },
             inject: { (x1) in .folder(item:x1) })
+
+    }
+}
+
+
+
+extension Folder {
+    public enum prism {
+        public static let root = Prism<Folder, ()>(
+            tryGet: { if case .root = $0 { return () } else { return nil } },
+            inject: { .root })
+
+        public static let custom = Prism<Folder,CustomFolder>(
+            tryGet: { if case .custom(let value) = $0 { return value } else { return nil } },
+            inject: { (x1) in .custom(value:x1) })
 
     }
 }

@@ -5,53 +5,53 @@ import UIKit
 import UNILibCore
 import UNIScanLib
 
-public extension Folder {
+public extension CustomFolder {
   enum lens {
-    public static let creationDate = Lens<Folder, Date>(
+    public static let creationDate = Lens<CustomFolder, Date>(
       get: { $0.creationDate },
       set: { part in 
         { whole in
-          Folder.init(creationDate: part, updateDate: whole.updateDate, name: whole.name, id: whole.id, parentFolderID: whole.parentFolderID, contentsCount: whole.contentsCount)
+          CustomFolder.init(creationDate: part, updateDate: whole.updateDate, name: whole.name, id: whole.id, parentFolderID: whole.parentFolderID, contentsCount: whole.contentsCount)
         }
       }
     )
-    public static let updateDate = Lens<Folder, Date>(
+    public static let updateDate = Lens<CustomFolder, Date>(
       get: { $0.updateDate },
       set: { part in 
         { whole in
-          Folder.init(creationDate: whole.creationDate, updateDate: part, name: whole.name, id: whole.id, parentFolderID: whole.parentFolderID, contentsCount: whole.contentsCount)
+          CustomFolder.init(creationDate: whole.creationDate, updateDate: part, name: whole.name, id: whole.id, parentFolderID: whole.parentFolderID, contentsCount: whole.contentsCount)
         }
       }
     )
-    public static let name = Lens<Folder, String>(
+    public static let name = Lens<CustomFolder, String>(
       get: { $0.name },
       set: { part in 
         { whole in
-          Folder.init(creationDate: whole.creationDate, updateDate: whole.updateDate, name: part, id: whole.id, parentFolderID: whole.parentFolderID, contentsCount: whole.contentsCount)
+          CustomFolder.init(creationDate: whole.creationDate, updateDate: whole.updateDate, name: part, id: whole.id, parentFolderID: whole.parentFolderID, contentsCount: whole.contentsCount)
         }
       }
     )
-    public static let id = Lens<Folder, UUID>(
+    public static let id = Lens<CustomFolder, UUID>(
       get: { $0.id },
       set: { part in 
         { whole in
-          Folder.init(creationDate: whole.creationDate, updateDate: whole.updateDate, name: whole.name, id: part, parentFolderID: whole.parentFolderID, contentsCount: whole.contentsCount)
+          CustomFolder.init(creationDate: whole.creationDate, updateDate: whole.updateDate, name: whole.name, id: part, parentFolderID: whole.parentFolderID, contentsCount: whole.contentsCount)
         }
       }
     )
-    public static let parentFolderID = Lens<Folder, UUID>(
+    public static let parentFolderID = Lens<CustomFolder, UUID>(
       get: { $0.parentFolderID },
       set: { part in 
         { whole in
-          Folder.init(creationDate: whole.creationDate, updateDate: whole.updateDate, name: whole.name, id: whole.id, parentFolderID: part, contentsCount: whole.contentsCount)
+          CustomFolder.init(creationDate: whole.creationDate, updateDate: whole.updateDate, name: whole.name, id: whole.id, parentFolderID: part, contentsCount: whole.contentsCount)
         }
       }
     )
-    public static let contentsCount = Lens<Folder, Int>(
+    public static let contentsCount = Lens<CustomFolder, Int>(
       get: { $0.contentsCount },
       set: { part in 
         { whole in
-          Folder.init(creationDate: whole.creationDate, updateDate: whole.updateDate, name: whole.name, id: whole.id, parentFolderID: whole.parentFolderID, contentsCount: part)
+          CustomFolder.init(creationDate: whole.creationDate, updateDate: whole.updateDate, name: whole.name, id: whole.id, parentFolderID: whole.parentFolderID, contentsCount: part)
         }
       }
     )
