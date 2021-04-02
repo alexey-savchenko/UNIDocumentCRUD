@@ -109,21 +109,18 @@ public class CRUDService {
   ) -> Result<ScanPage, CRUDService.Error> {
     let page = ScanPage(
       id: UUID(),
-      settings: ImageSettings(quad: .defaultQuad(for: image)),
+      settings: ImageSettings(
+        quad: Quadrilateral.defaultQuad(for: image).relativeToSize(image.size)
+      ),
       attachments: [],
       cachedOcr: nil
     )
     if let imageData = autoreleasepool(invoking: { image.jpegData(compressionQuality: 0.5) }) {
-      let encodedPageData = try! JSONEncoder().encode(page)
-      let pageURL = url(for: Directory.documents)
-        .appendingPathComponent(page.id.uuidString)
-        .appendingPathExtension("json")
       let resourceURL = url(for: Directory.resources)
         .appendingPathComponent(page.id.uuidString)
         .appendingPathExtension("jpg")
       do {
         try imageData.write(to: resourceURL)
-        try encodedPageData.write(to: pageURL)
 
         return .success(page)
       } catch {
