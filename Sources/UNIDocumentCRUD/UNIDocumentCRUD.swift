@@ -28,9 +28,7 @@ public class CRUDService {
     }
   }
 
-  let bag = DisposeBag()
-
-  func items() -> [DocumentItem] {
+  public func items() -> [DocumentItem] {
     let storeURL = url(for: Directory.documents)
     let contentsPaths = (try? FileManager.default.contentsOfDirectory(atPath: storeURL.path)) ?? []
     let rawContents = contentsPaths
@@ -38,8 +36,8 @@ public class CRUDService {
       .compactMap { url in try? Data(contentsOf: url) }
       .compactMap { data in try? JSONDecoder().decode(DocumentItem.self, from: data) }
 
-    let rawFolders = rawContents.compactMap { $0.folder }
-    let otherItems = rawContents.filter { $0.folder == nil }
+    let rawFolders = rawContents.compactMap(DocumentItem.prism.folder.tryGet)
+    let otherItems = rawContents.filter { DocumentItem.prism.folder.tryGet($0) == nil }
 
     let folders = rawFolders
       .map { rawFolder -> Folder in
@@ -50,11 +48,11 @@ public class CRUDService {
     return folders + otherItems
   }
 
-  func contentsOf(_ folder: Folder) -> [DocumentItem] {
+  public func contentsOf(_ folder: Folder) -> [DocumentItem] {
     return items().filter { $0.parentFolderID == folder.id }
   }
 
-  func createFolder(
+  public func createFolder(
     name: String,
     parentFolderID: UUID
   ) -> Result<DocumentItem, CRUDService.Error> {
@@ -80,7 +78,7 @@ public class CRUDService {
     }
   }
 
-  func createTextDocument(
+  public func createTextDocument(
     from pages: [TextPage],
     name: String,
     parentFolderID: UUID
@@ -106,7 +104,7 @@ public class CRUDService {
     }
   }
 
-  func createPage(
+  public func createPage(
     from image: UIImage
   ) -> Result<ScanPage, CRUDService.Error> {
     let page = ScanPage(
@@ -136,7 +134,7 @@ public class CRUDService {
     }
   }
 
-  func createDocument(
+  public func createDocument(
     from pageImages: [UIImage],
     name: String,
     folder: Folder
@@ -169,7 +167,7 @@ public class CRUDService {
     }
   }
 
-  func createDocument(
+  public func createDocument(
     from pages: [ScanPage],
     name: String,
     folder: Folder
@@ -196,7 +194,7 @@ public class CRUDService {
     }
   }
 
-  func removePage(_ page: ScanPage) {
+  public func removePage(_ page: ScanPage) {
     let pageURL = url(for: .documents)
       .appendingPathComponent(page.id.uuidString)
       .appendingPathComponent("json")
@@ -208,7 +206,7 @@ public class CRUDService {
     try? FileManager.default.removeItem(at: picURL)
   }
 
-  func deleteDocument(item: DocumentItem) {
+  public func deleteDocument(item: DocumentItem) {
     let rootDir = url(for: .documents)
     if case .folder(let folder) = item {
       let contents = contentsOf(folder)
@@ -226,7 +224,7 @@ public class CRUDService {
     }
   }
 
-  func update(item: DocumentItem) {
+  public func update(item: DocumentItem) {
     let documentURL = url(for: .documents)
       .appendingPathComponent(item.id.uuidString)
       .appendingPathExtension("json")

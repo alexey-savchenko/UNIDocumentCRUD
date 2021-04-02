@@ -260,15 +260,6 @@ public enum DocumentItem: Hashable, Equatable, Identifiable {
   case text(item: TextDocument)
   case folder(item: Folder)
 
-  var folder: Folder? {
-    switch self {
-    case .folder(let item):
-      return item
-    default:
-      return nil
-    }
-  }
-
   public var id: UUID {
     switch self {
     case .folder(let item): return item.id
