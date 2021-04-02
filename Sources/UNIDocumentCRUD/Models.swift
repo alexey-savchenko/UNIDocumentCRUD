@@ -56,7 +56,7 @@ public enum AttachmentPositioning: Hashable, Codable {
 
 /// sourcery: lens
 public struct SignatureAttachment: Hashable, Codable, Identifiable {
-  internal init(id: UUID, positioning: AttachmentPositioning) {
+  public init(id: UUID, positioning: AttachmentPositioning) {
     self.id = id
     self.positioning = positioning
   }
@@ -103,7 +103,7 @@ extension Attachment: Codable {
 
 /// sourcery: lens
 public struct TextPage: Codable, Hashable, Identifiable {
-  internal init(id: UUID, contentData: Data) {
+  public init(id: UUID, contentData: Data) {
     self.id = id
     self.contentData = contentData
   }
@@ -114,7 +114,7 @@ public struct TextPage: Codable, Hashable, Identifiable {
 
 /// sourcery: lens
 public struct TextDocument: Codable, Hashable, Identifiable {
-  internal init(
+  public init(
     id: UUID,
     creationDate: Date,
     updateDate: Date,
@@ -204,7 +204,7 @@ public struct ScanPage: Codable, Hashable, Identifiable {
 
 /// sourcery: lens
 public struct ScannedDocument: Codable, Hashable, Identifiable {
-  internal init(
+  public init(
     id: UUID,
     creationDate: Date,
     updateDate: Date,
@@ -243,7 +243,7 @@ public enum Folder {
 
 /// sourcery: lens
 public struct CustomFolder: Codable, Hashable, Identifiable {
-  internal init(
+  public init(
     creationDate: Date,
     updateDate: Date,
     name: String,
