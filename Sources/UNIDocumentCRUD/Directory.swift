@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum Directory: String, CaseIterable {
+public enum Directory: String, CaseIterable {
   case documents
   case resources
 }
 
-func url(for directory: Directory) -> URL {
+public func url(for directory: Directory) -> URL {
   let rootDocDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
   return rootDocDir.appendingPathComponent(directory.rawValue)
 }
