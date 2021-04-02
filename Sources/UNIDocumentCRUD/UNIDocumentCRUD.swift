@@ -48,7 +48,7 @@ public class CRUDService {
     return folders + otherItems
   }
 
-  public func contentsOf(_ folder: CustomFolder) -> [DocumentItem] {
+  public func contentsOf(_ folder: Folder) -> [DocumentItem] {
     return items().filter { $0.parentFolderID == folder.id }
   }
 
@@ -206,7 +206,7 @@ public class CRUDService {
   public func deleteDocument(item: DocumentItem) {
     let rootDir = url(for: .documents)
     if case .folder(let folder) = item {
-      let contents = contentsOf(folder)
+      let contents = contentsOf(.custom(value: folder))
       contents.forEach(deleteDocument)
     }
 
